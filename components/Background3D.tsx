@@ -82,13 +82,14 @@ const PersonalAvatar = () => {
 };
 
 const Particles = () => {
-    const count = 2000;
+    // Doubled particle count
+    const count = 4000;
     const points = useMemo(() => {
         const p = new Float32Array(count * 3);
         for (let i = 0; i < count; i++) {
-            p[i * 3] = (Math.random() - 0.5) * 40;
-            p[i * 3 + 1] = (Math.random() - 0.5) * 40;
-            p[i * 3 + 2] = (Math.random() - 0.5) * 40; // Full range for "flying through" sensation
+            p[i * 3] = (Math.random() - 0.5) * 40;     // X
+            p[i * 3 + 1] = (Math.random() - 0.5) * 40; // Y
+            p[i * 3 + 2] = (Math.random() - 0.5) * 40; // Z
         }
         return p;
     }, []);
@@ -110,15 +111,27 @@ const Particles = () => {
 
     const particlesRef = useRef<THREE.Points>(null);
 
-    useFrame((state) => {
+    useFrame((state, delta) => {
         if (!particlesRef.current) return;
-        // Fly through background effect
-        // Speed increased 3x (from 0.05 to 0.15)
-        particlesRef.current.position.z += 0.15;
-        if (particlesRef.current.position.z > 15) {
-            particlesRef.current.position.z = -25;
+
+        // Continuous Flow: Move each particle individually
+        const positions = particlesRef.current.geometry.attributes.position.array as Float32Array;
+
+        // Speed increased 5x (previously 0.15, now 0.75 per frame approx)
+        // Using delta for consistent speed regardless of framerate
+        const speed = 45.0 * delta;
+
+        for (let i = 0; i < count; i++) {
+            const i3 = i * 3;
+            positions[i3 + 2] += speed; // Move Z forward
+
+            // If the particle flies past the camera, reset it to the back
+            if (positions[i3 + 2] > 15) {
+                positions[i3 + 2] = -25;
+            }
         }
-        particlesRef.current.rotation.z += 0.001;
+
+        particlesRef.current.geometry.attributes.position.needsUpdate = true;
     });
 
     return (
