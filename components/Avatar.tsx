@@ -100,4 +100,4 @@ Avatar.displayName = "Avatar";
 
 export default Avatar;
 
-useGLTF.preload("/models/avatar.glb");
+useGLTF.preload(process.env.NODE_ENV === 'production' ? '/3d-cv/models/avatar.glb' : '/models/avatar.glb');
