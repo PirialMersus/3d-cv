@@ -2,9 +2,12 @@ import React, { useEffect, useLayoutEffect, useRef, forwardRef } from "react";
 import { useAnimations, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
+const basePath = process.env.NODE_ENV === 'production' ? '/3d-cv' : '';
+const modelPath = `${basePath}/models/avatar.glb`;
+
 const Avatar = forwardRef<THREE.Group, any>((props, ref) => {
     const group = useRef<THREE.Group>(null);
-    const { nodes, materials, animations } = useGLTF("/models/avatar.glb") as any;
+    const { nodes, materials, animations } = useGLTF(modelPath) as any;
     const { actions } = useAnimations(animations, group);
 
     const opaqueMaterials = React.useMemo(() => {
