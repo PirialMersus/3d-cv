@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 10, 10, 10;
+    --background-end-rgb: 0, 0, 0;
+}
+
+body {
+    color: rgb(var(--foreground-rgb));
+    background: black;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+@layer base {
+    body {
+        @apply bg-background;
+    }
+}
+
+.glass-card {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6;
+}
+
+.text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-ghost-cyan to-ghost-purple;
+}
+
+.btn-primary {
+    @apply relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-gradient-to-r from-ghost-cyan/20 to-ghost-purple/20 border border-white/10 rounded-xl hover:border-ghost-cyan/50 hover:from-ghost-cyan/30 hover:to-ghost-purple/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ghost-cyan;
+}
