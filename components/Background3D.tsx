@@ -113,7 +113,8 @@ const Particles = () => {
     useFrame((state) => {
         if (!particlesRef.current) return;
         // Fly through background effect
-        particlesRef.current.position.z += 0.05;
+        // Speed increased 3x (from 0.05 to 0.15)
+        particlesRef.current.position.z += 0.15;
         if (particlesRef.current.position.z > 15) {
             particlesRef.current.position.z = -25;
         }
