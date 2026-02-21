@@ -82,8 +82,8 @@ const PersonalAvatar = () => {
 };
 
 const Particles = () => {
-    // Doubled particle count
-    const count = 4000;
+    // Reverted particle count to original
+    const count = 2000;
     const points = useMemo(() => {
         const p = new Float32Array(count * 3);
         for (let i = 0; i < count; i++) {
@@ -117,9 +117,9 @@ const Particles = () => {
         // Continuous Flow: Move each particle individually
         const positions = particlesRef.current.geometry.attributes.position.array as Float32Array;
 
-        // Speed increased 5x (previously 0.15, now 0.75 per frame approx)
+        // Speed halved from previous 5x iteration (now ~2.5x original speed)
         // Using delta for consistent speed regardless of framerate
-        const speed = 45.0 * delta;
+        const speed = 22.5 * delta;
 
         for (let i = 0; i < count; i++) {
             const i3 = i * 3;
