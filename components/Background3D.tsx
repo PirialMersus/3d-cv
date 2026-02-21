@@ -117,9 +117,9 @@ const Particles = () => {
         // Continuous Flow: Move each particle individually
         const positions = particlesRef.current.geometry.attributes.position.array as Float32Array;
 
-        // Speed halved from previous 5x iteration (now ~2.5x original speed)
+        // Moderate "Space Cruise" speed (approx 3x original, less than half of previous)
         // Using delta for consistent speed regardless of framerate
-        const speed = 22.5 * delta;
+        const speed = 10.0 * delta;
 
         for (let i = 0; i < count; i++) {
             const i3 = i * 3;
